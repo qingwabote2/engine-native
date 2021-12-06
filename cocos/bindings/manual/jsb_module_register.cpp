@@ -73,6 +73,10 @@
         #include "cocos/bindings/auto/jsb_webview_auto.h"
     #endif
 
+    #if USE_HDLPLAYER
+        #include "cocos/bindings/manual/jsb_hdlplayer.hpp"
+    #endif
+
 #endif // (CC_PLATFORM == CC_PLATFORM_MAC_IOS || CC_PLATFORM == CC_PLATFORM_ANDROID)
 
 #if USE_SOCKET && USE_WEBSOCKET_SERVER
@@ -170,6 +174,10 @@ bool jsb_register_all_modules() {
 
     #if USE_WEBVIEW
     se->addRegisterCallback(register_all_webview);
+    #endif
+
+    #if USE_HDLPLAYER
+    se->addRegisterCallback(register_all_hdlplayer);
     #endif
 
 #endif // (CC_PLATFORM == CC_PLATFORM_MAC_IOS || CC_PLATFORM == CC_PLATFORM_ANDROID)

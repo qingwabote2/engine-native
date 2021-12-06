@@ -35,6 +35,10 @@
     #define USE_VIDEO 1
 #endif
 
+#ifndef USE_HDLPLAYER
+    #define USE_HDLPLAYER 1
+#endif
+
 #ifndef USE_WEBVIEW
     #define USE_WEBVIEW 1
 #endif

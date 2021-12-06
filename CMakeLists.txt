@@ -18,6 +18,7 @@ cc_set_if_undefined(USE_AUDIO                ON)
 cc_set_if_undefined(USE_EDIT_BOX             ON)
 cc_set_if_undefined(USE_SE_JSC               OFF)
 cc_set_if_undefined(USE_VIDEO                ON)
+cc_set_if_undefined(USE_HDLPLAYER             ON)
 cc_set_if_undefined(USE_WEBVIEW              ON)
 cc_set_if_undefined(USE_MIDDLEWARE           ON)
 cc_set_if_undefined(USE_DRAGONBONES          ON)
@@ -1587,6 +1588,13 @@ if(NOT IOS AND USE_WEBSOCKET_SERVER)
     )
 endif()
 
+if(USE_HDLPLAYER)
+    cocos_source_files(
+        NO_WERROR    cocos/bindings/manual/jsb_hdlplayer.cpp
+                     cocos/bindings/manual/jsb_hdlplayer.hpp
+    )
+endif()
+
 if(ANDROID)
     cocos_source_files(
                      cocos/bindings/manual/jsb_platform_android.cpp
@@ -1741,6 +1749,120 @@ if(ANDROID OR IOS OR OHOS)
     endif()
 endif()
 
+if(ANDROID OR IOS)
+    if(USE_HDLPLAYER)
+        cocos_source_files(
+            cocos/ui/hdlplayer/ijkplayer_cc.cpp
+            cocos/ui/hdlplayer/HDLPlayer.cpp
+            cocos/ui/hdlplayer/ijksdl_vout_cc_imageinfo.cpp
+            cocos/ui/hdlplayer/image_convert.c
+            cocos/ui/hdlplayer/ijksdl_vout_cc_imageinfo.hpp
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_fferror.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkavformat.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkurlhook.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkioprotocol.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkasync.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/cJSON.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkioapplication.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijklas.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkiomanager.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijklongurl.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkio.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijksegment.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkioapplication.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/cJSON.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkioprotocol.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkiourlhook.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijklas.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkioffio.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/allformats.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijklivehook.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkiocache.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkiourl.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavformat/ijkiomanager.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/pipeline/ffpipenode_ffplay_vdec.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/pipeline/ffpipeline_ffplay.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/pipeline/ffpipenode_ffplay_vdec.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/pipeline/ffpipeline_ffplay.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffpipenode.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkplayer_internal.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_cmdutils.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffpipeline.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkversion.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/config.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkplayer.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffplay.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkmeta.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffpipenode.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffplay_debug.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffplay_options.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffmsg.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffinc.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffpipeline.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffplay_def.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_cmdutils.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffplay.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkplayer.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ff_ffmsg_queue.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijkstl.cpp
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijkutils.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijkfifo.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijkdict.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijktree.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijkstl.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijkthreadpool.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/opt.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijkdict.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijkfifo.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijkutils.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijktree.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkavutil/ijkthreadpool.c
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ijkmeta.c
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_stdinc.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_container.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_vout.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ffmpeg/ijksdl_vout_overlay_ffmpeg.c
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ffmpeg/ijksdl_image_convert.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ffmpeg/ijksdl_inc_ffmpeg.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ffmpeg/ijksdl_vout_overlay_ffmpeg.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_thread.c
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_audio.c
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_mutex.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_fourcc.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_video.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_aout.c
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_endian.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_class.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_timer.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_aout_internal.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_inc_internal.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_error.c
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_audio.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_thread.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_vout.c
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_stdinc.c
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_vout_internal.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_log.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_mutex.c
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_aout.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_misc.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_error.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ijksdl_timer.c
+            cocos/ui/hdlplayer/ffpipeline_cc.h
+            cocos/ui/hdlplayer/ijkplayer_cc.hpp
+            cocos/ui/hdlplayer/HDLPlayer.hpp
+        )
+        add_library(libavcodec STATIC IMPORTED GLOBAL)
+        add_library(libavformat STATIC IMPORTED GLOBAL)
+        add_library(libavutil STATIC IMPORTED GLOBAL)
+        add_library(libswresample STATIC IMPORTED GLOBAL)
+        add_library(libswscale STATIC IMPORTED GLOBAL)
+        add_library(libyuv_internal STATIC IMPORTED GLOBAL)
+        add_library(libyuv_neon STATIC IMPORTED GLOBAL)
+    endif()
+endif()
+
 if(ANDROID)
     if(USE_EDIT_BOX)
         cocos_source_files(
@@ -1794,7 +1916,68 @@ elseif(IOS)
        cocos_source_files(
             NO_WERROR    cocos/ui/webview/WebViewImpl-ios.mm
        )
-   endif()
+    endif()
+    if(USE_HDLPLAYER)
+        cocos_source_files(
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/IJKVideoToolBoxSync.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/IJKVideoToolBoxAsync.m
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/IJKVideoToolBox.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/ffpipenode_ios_videotoolbox_vdec.m
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/h264_sps_parser.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/IJKVideoToolBoxSync.m
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/IJKVideoToolBoxAsync.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/ffpipenode_ios_videotoolbox_vdec.h
+            cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/IJKVideoToolBox.m
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/IJKSDLAudioQueueController.m
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/IJKSDLAudioUnitController.m
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/ijksdl_vout_overlay_videotoolbox.m
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/IJKSDLAudioKit.m
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/ijksdl_aout_ios_audiounit.m
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/ijksdl_vout_overlay_videotoolbox.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/IJKSDLAudioUnitController.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/IJKSDLAudioQueueController.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/IJKSDLAudioKit.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/ijksdl_aout_ios_audiounit.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/ijksdl_thread_ios.h
+            cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/ijksdl_thread_ios.m
+            cocos/ui/hdlplayer/ios/ffpipeline_cc.c
+        )
+        set(HDLPLAYER_ARC
+            ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/ffpipenode_ios_videotoolbox_vdec.m
+            ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/IJKSDLAudioKit.m
+            ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/IJKVideoToolBoxAsync.m
+            ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/IJKVideoToolBoxSync.m
+            ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijkplayer/ios/pipeline/IJKVideoToolBox.m
+            ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/IJKSDLAudioQueueController.m
+            ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/IJKSDLAudioUnitController.m
+            ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/ijksdl_thread_ios.m
+            ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijksdl/ios/ijksdl_vout_overlay_videotoolbox.m
+        )
+        set_source_files_properties(${HDLPLAYER_ARC} PROPERTIES
+            COMPILE_FLAGS -fobjc-arc
+        )
+        set_target_properties(libavcodec PROPERTIES
+            IMPORTED_LOCATION ${CWD}/cocos/ui/hdlplayer/lib/ios/libavcodec.a
+        )
+        set_target_properties(libavformat PROPERTIES
+            IMPORTED_LOCATION ${CWD}/cocos/ui/hdlplayer/lib/ios/libavformat.a
+        )
+        set_target_properties(libavutil PROPERTIES
+            IMPORTED_LOCATION ${CWD}/cocos/ui/hdlplayer/lib/ios/libavutil.a
+        )
+        set_target_properties(libswresample PROPERTIES
+            IMPORTED_LOCATION ${CWD}/cocos/ui/hdlplayer/lib/ios/libswresample.a
+        )
+        set_target_properties(libswscale PROPERTIES
+            IMPORTED_LOCATION ${CWD}/cocos/ui/hdlplayer/lib/ios/libswscale.a
+        )
+        set_target_properties(libyuv_internal PROPERTIES
+            IMPORTED_LOCATION ${CWD}/cocos/ui/hdlplayer/lib/ios/libyuv_internal.a
+        )
+        set_target_properties(libyuv_neon PROPERTIES
+            IMPORTED_LOCATION ${CWD}/cocos/ui/hdlplayer/lib/ios/libyuv_neon.a
+        )
+    endif()
 elseif(WIN32)
     if(USE_EDIT_BOX)
         cocos_source_files(
@@ -1942,6 +2125,7 @@ endif()
 function(cc_apply_definations target)
     target_compile_definitions(${target} PUBLIC
         $<IF:$<BOOL:${USE_VIDEO}>,USE_VIDEO=1,USE_VIDEO=0>
+        $<IF:$<BOOL:${USE_HDLPLAYER}>,USE_HDLPLAYER=1,USE_HDLPLAYER=0>
         $<IF:$<BOOL:${USE_WEBVIEW}>,USE_WEBVIEW=1,USE_WEBVIEW=0>
         $<IF:$<BOOL:${USE_AUDIO}>,USE_AUDIO=1,USE_AUDIO=0>
         $<IF:$<BOOL:${USE_SOCKET}>,USE_SOCKET=1,USE_SOCKET=0>
@@ -2011,6 +2195,11 @@ target_include_directories(cocos2d
         ${CWD}/cocos/renderer/core
         ${CWD}/cocos/editor-support
         $<$<BOOL:USE_SE_JSC>:${CWD}/cocos/bindings/jswrapper>
+        ${CWD}/cocos/ui/hdlplayer/ijkmedia
+        ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijkplayer
+        ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijksdl
+        ${CWD}/cocos/ui/hdlplayer/ijkmedia/ijksdl/ffmpeg
+        ${CWD}/cocos/ui/hdlplayer/include
     PRIVATE
         ${CC_EXTERNAL_PRIVATE_INCLUDES}
 )
@@ -2137,6 +2326,19 @@ if(APPLE)
             "-framework OpenGLES"
             "-framework JavaScriptCore"
         )
+        if(USE_HDLPLAYER)
+            target_link_libraries(cocos2d PUBLIC
+                "-framework CoreVideo"
+                "-framework VideoToolbox"
+                libavcodec 
+                libavformat
+                libavutil
+                libswresample
+                libswscale
+                libyuv_internal
+                libyuv_neon
+            )
+        endif()
         set_property(TARGET cocos2d PROPERTY XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET ${TARGET_IOS_VERSION})
         set_property(TARGET cocos2d PROPERTY XCODE_ATTRIBUTE_ENABLE_BITCODE "NO")
     endif()

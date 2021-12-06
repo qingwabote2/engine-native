@@ -184,3 +184,11 @@ cocos/platform/ohos/libcocos/build
 
 
 **/*~
+cocos/ui/hdlplayer/lib/ios/libavcodec.a
+cocos/ui/hdlplayer/lib/ios/libavfilter.a
+cocos/ui/hdlplayer/lib/ios/libavformat.a
+cocos/ui/hdlplayer/lib/ios/libavutil.a
+cocos/ui/hdlplayer/lib/ios/libswresample.a
+cocos/ui/hdlplayer/lib/ios/libswscale.a
+cocos/ui/hdlplayer/lib/ios/libyuv_internal.a
+cocos/ui/hdlplayer/lib/ios/libyuv_neon.a
